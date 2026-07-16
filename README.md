@@ -1,4 +1,4 @@
-# 🍭 Tienda Locores - Proyecto Final DevOps
+# 🍭 Tienda Lícores - Proyecto Final DevOps
 
 > Despliegue completo de una aplicación web en VPS con Docker, Traefik y PostgreSQL
 

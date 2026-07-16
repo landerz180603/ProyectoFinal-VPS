@@ -9,6 +9,7 @@ services:
     restart: unless-stopped
     command:
       - "--configFile=/etc/traefik/traefik.yml"
+      - "--log.level=DEBUG"
     ports:
       - "80:80"
       - "443:443"
