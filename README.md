@@ -321,8 +321,8 @@ docker compose logs backend
 
 **Proyecto Final - DevOps VPS**
 
-- Integrante 1: Landerz Galloe Razo
-- Integrante 2: [Tu compañero/a]
+- Integrante 1:Paul Andres Gallo Erazo
+- Integrante 2: Jorge Rafael Yugsi Yugsi
 
 ---
 
