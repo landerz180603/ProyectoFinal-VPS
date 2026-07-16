@@ -83,6 +83,7 @@ services:
       - "traefik.enable=true"
       - "traefik.http.routers.backend.rule=Host(`api.landerzgalloerazo.duckdns.org`)"
       - "traefik.http.services.backend.loadbalancer.server.port=5000"
+      - "traefik.docker.network=traefik-public" 
 
   frontend:
     image: ghcr.io/landerz180603/frontend:latest  
@@ -96,3 +97,4 @@ services:
       - "traefik.enable=true"
       - "traefik.http.routers.frontend.rule=Host(`app.landerzgalloerazo.duckdns.org`)"
       - "traefik.http.services.frontend.loadbalancer.server.port=80"
+      - "traefik.docker.network=traefik-public"  
