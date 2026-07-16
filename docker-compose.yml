@@ -6,8 +6,9 @@ networks:
 
 services:
   traefik:
-    image: traefik:latest
+    image: traefik:v2.11.0
     container_name: traefik
+    user: root
     restart: unless-stopped
     command:
       - "--configFile=/etc/traefik/traefik.yml"

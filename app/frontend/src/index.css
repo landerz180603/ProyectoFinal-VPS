@@ -1,0 +1,241 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  background: #f5f5f5;
+  color: #222;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+button,
+input {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+.auth-page {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background:
+    linear-gradient(rgba(20, 0, 0, 0.75), rgba(20, 0, 0, 0.75)),
+    url('https://placehold.co/1600x900?text=Licoreria');
+  background-size: cover;
+  background-position: center;
+}
+
+.auth-card {
+  width: 100%;
+  max-width: 430px;
+  padding: 32px;
+  border-radius: 16px;
+  background: white;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25);
+}
+
+.auth-card h1 {
+  margin-top: 0;
+  color: #8b0000;
+  text-align: center;
+}
+
+.auth-description {
+  color: #555;
+  text-align: center;
+}
+
+.auth-card form {
+  display: grid;
+  gap: 10px;
+}
+
+.auth-card label {
+  margin-top: 8px;
+  font-weight: bold;
+}
+
+.auth-card input {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #bbb;
+  border-radius: 8px;
+  outline: none;
+}
+
+.auth-card input:focus {
+  border-color: #8b0000;
+  box-shadow: 0 0 0 3px rgba(139, 0, 0, 0.15);
+}
+
+.primary-button {
+  margin-top: 14px;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  background: #8b0000;
+  color: white;
+  font-weight: bold;
+}
+
+.primary-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.65;
+}
+
+.link-button {
+  width: 100%;
+  margin-top: 18px;
+  border: none;
+  background: transparent;
+  color: #8b0000;
+  font-weight: bold;
+}
+
+.alert {
+  margin: 16px 0;
+  padding: 12px;
+  border-radius: 8px;
+}
+
+.alert-error {
+  border: 1px solid #ef9a9a;
+  background: #ffebee;
+  color: #b71c1c;
+}
+
+.alert-success {
+  border: 1px solid #a5d6a7;
+  background: #e8f5e9;
+  color: #1b5e20;
+}
+
+.store-page {
+  min-height: 100vh;
+  padding-bottom: 40px;
+}
+
+.store-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  padding: 24px max(20px, calc((100% - 1200px) / 2));
+  background: #8b0000;
+  color: white;
+}
+
+.store-header h1,
+.store-header p {
+  margin: 0;
+}
+
+.store-header p {
+  margin-top: 6px;
+  opacity: 0.85;
+}
+
+.store-header button {
+  padding: 10px 16px;
+  border: 1px solid white;
+  border-radius: 8px;
+  background: transparent;
+  color: white;
+}
+
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 24px;
+  width: min(1200px, calc(100% - 40px));
+  margin: 32px auto;
+}
+
+.product-card {
+  overflow: hidden;
+  border-radius: 14px;
+  background: white;
+  box-shadow: 0 5px 18px rgba(0, 0, 0, 0.1);
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.product-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.16);
+}
+
+.product-card img {
+  width: 100%;
+  height: 220px;
+  display: block;
+  object-fit: cover;
+}
+
+.product-content {
+  padding: 18px;
+}
+
+.product-content h2 {
+  margin: 0 0 10px;
+  font-size: 20px;
+}
+
+.description {
+  min-height: 44px;
+  color: #555;
+  line-height: 1.4;
+}
+
+.price {
+  margin-bottom: 8px;
+  color: #2e7d32;
+  font-size: 22px;
+  font-weight: bold;
+}
+
+.stock {
+  margin: 0;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.available {
+  color: #2e7d32;
+}
+
+.unavailable {
+  color: #b71c1c;
+}
+
+.status-message {
+  margin-top: 50px;
+  text-align: center;
+}
+
+.store-page > .alert {
+  width: min(800px, calc(100% - 40px));
+  margin: 30px auto;
+}
+
+@media (max-width: 600px) {
+  .store-header {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .store-header button {
+    width: 100%;
+  }
+
+  .auth-card {
+    padding: 24px 20px;
+  }
+}

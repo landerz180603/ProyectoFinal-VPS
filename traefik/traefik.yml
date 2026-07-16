@@ -16,12 +16,12 @@ providers:
   docker:
     endpoint: "unix:///var/run/docker.sock"
     exposedByDefault: false
-    # apiVersion: "1.40"   
+    watch: true
 
 certificatesResolvers:
   letsencrypt:
     acme:
-      email: paulandresgalloerazo@gmail.com   
+      email: paulandresgalloerazo@gmail.com
       storage: /letsencrypt/acme.json
       httpChallenge:
         entryPoint: web
