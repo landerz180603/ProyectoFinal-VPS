@@ -1,0 +1,148 @@
+version: '3.8'
+
+services:
+  # ===== TRAEFIK - Proxy Inverso =====
+  traefik:
+    image: traefik:v2.10
+    container_name: traefik
+    restart: unless-stopped
+    security_opt:
+      - no-new-privileges:true
+    networks:
+      - traefik
+    ports:
+      - "80:80"
+      - "443:443"
+    environment:
+      - CF_API_EMAIL=${CF_API_EMAIL:-}
+      - CF_API_KEY=${CF_API_KEY:-}
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - ./traefik/traefik.yml:/traefik.yml:ro
+      - ./traefik/config.yml:/config.yml:ro
+      - ./traefik/acme.json:/acme.json
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.traefik.entrypoints=http"
+      - "traefik.http.routers.traefik.rule=Host(`traefik.${DOMAIN}`)"
+      - "traefik.http.middlewares.traefik-auth.basicauth.users=${TRAEFIK_USER}:${TRAEFIK_PASSWORD}"
+      - "traefik.http.routers.traefik.middlewares=traefik-auth"
+      - "traefik.http.services.traefik.loadbalancer.server.port=8080"
+
+  # ===== PORTAINER - Gestor de Contenedores =====
+  portainer:
+    image: portainer/portainer-ce:latest
+    container_name: portainer
+    restart: unless-stopped
+    security_opt:
+      - no-new-privileges:true
+    networks:
+      - traefik
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /var/run/docker.sock:/var/run/docker.sock
+      - portainer_data:/data
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.portainer.entrypoints=http"
+      - "traefik.http.routers.portainer.rule=Host(`portainer.${DOMAIN}`)"
+      - "traefik.http.services.portainer.loadbalancer.server.port=9000"
+
+  # ===== POSTGRESQL - Base de Datos =====
+  postgres:
+    image: postgres:15-alpine
+    container_name: postgres
+    restart: unless-stopped
+    security_opt:
+      - no-new-privileges:true
+    networks:
+      - traefik
+    environment:
+      POSTGRES_USER: ${DB_USER:-locores_user}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-locores_pass}
+      POSTGRES_DB: ${DB_NAME:-locores_db}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./postgres/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+    ports:
+      - "5432:5432"
+
+  # ===== PGADMIN - Administrador de Base de Datos =====
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    container_name: pgadmin
+    restart: unless-stopped
+    security_opt:
+      - no-new-privileges:true
+    networks:
+      - traefik
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_EMAIL:-admin@locores.com}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_PASSWORD:-admin123}
+    volumes:
+      - pgadmin_data:/var/lib/pgadmin
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.pgadmin.entrypoints=http"
+      - "traefik.http.routers.pgadmin.rule=Host(`pgadmin.${DOMAIN}`)"
+      - "traefik.http.services.pgadmin.loadbalancer.server.port=80"
+
+  # ===== BACKEND - API PHP =====
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: backend
+    restart: unless-stopped
+    security_opt:
+      - no-new-privileges:true
+    networks:
+      - traefik
+    environment:
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_USER: ${DB_USER:-locores_user}
+      DB_PASSWORD: ${DB_PASSWORD:-locores_pass}
+      DB_NAME: ${DB_NAME:-locores_db}
+      APP_ENV: ${APP_ENV:-production}
+    volumes:
+      - ./backend/src:/var/www/html
+      - ./backend/php.ini:/usr/local/etc/php/conf.d/custom.ini:ro
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.api.entrypoints=http"
+      - "traefik.http.routers.api.rule=Host(`api.${DOMAIN}`)"
+      - "traefik.http.services.api.loadbalancer.server.port=80"
+    depends_on:
+      - postgres
+
+  # ===== FRONTEND - Aplicación JavaScript =====
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: frontend
+    restart: unless-stopped
+    security_opt:
+      - no-new-privileges:true
+    networks:
+      - traefik
+    environment:
+      REACT_APP_API_URL: http://api.${DOMAIN}
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.app.entrypoints=http"
+      - "traefik.http.routers.app.rule=Host(`${DOMAIN}`)"
+      - "traefik.http.services.app.loadbalancer.server.port=80"
+    depends_on:
+      - backend
+
+networks:
+  traefik:
+    driver: bridge
+
+volumes:
+  postgres_data:
+  pgadmin_data:
+  portainer_data:
