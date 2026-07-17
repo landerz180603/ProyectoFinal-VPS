@@ -9,6 +9,7 @@ entryPoints:
         entryPoint:
           to: websecure
           scheme: https
+
   websecure:
     address: ":443"
 
@@ -17,6 +18,7 @@ providers:
     endpoint: "unix:///var/run/docker.sock"
     exposedByDefault: false
     watch: true
+    network: traefik-public
 
 certificatesResolvers:
   letsencrypt:

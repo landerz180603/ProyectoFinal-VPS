@@ -1,0 +1,4 @@
+traefik/letsencrypt/acme.json
+postgres/data/
+portainer/data/
+.env
