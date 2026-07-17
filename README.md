@@ -105,11 +105,11 @@ docker compose ps
 
 | Servicio | URL | Usuario | Contraseña |
 |----------|-----|---------|-----------|
-| **Aplicación** | `http://landerzgalloerazo.duckdns.org` | - | - |
-| **API Backend** | `http://api.landerzgalloerazo.duckdns.org` | - | - |
-| **Portainer** | `http://portainer.landerzgalloerazo.duckdns.org` | - | (crear al acceder) |
-| **pgAdmin** | `http://pgadmin.landerzgalloerazo.duckdns.org` | admin@locores.com | (ver .env) |
-| **Traefik Dashboard** | `http://traefik.landerzgalloerazo.duckdns.org` | admin | (ver .env) |
+| **Aplicación** | `http://jorge.byronrm.com` | - | - |
+| **API Backend** | `http://backjr.byronrm.com` | - | - |
+| **Portainer** | `http://portainerjr.byronrm.com` | - | (crear al acceder) |
+| **pgAdmin** | `http://dbyugsi,byronrm.com` | admin@locores.com | (ver .env) |
+| **Traefik Dashboard** | `http://traefikjr.byronrm.com` | admin | (ver .env) |
 
 ---
 
@@ -254,7 +254,7 @@ Agregar:
 VPS_HOST           = tu.vps.ip
 VPS_USER           = usuario_ssh
 VPS_SSH_KEY        = contenido_de_tu_private_key
-DOMAIN             = landerzgalloerazo.duckdns.org
+DOMAIN             = jorge.byronrm.com
 ```
 
 Obtener tu SSH key:
@@ -322,7 +322,7 @@ docker compose logs backend
 **Proyecto Final - DevOps VPS**
 
 - Integrante 1:Paul Andres Gallo Erazo
-- Integrante 2: Jorge Rafael Yugsi Yugsi
+- Integrante 2:Jorge Rafael Yugsi Yugsi
 
 ---
 
@@ -348,4 +348,4 @@ Proyecto educativo - Licencia MIT
 
 ---
 
-**¡Proyecto listo para defensa!** 🚀
+**Proyecto** 🚀

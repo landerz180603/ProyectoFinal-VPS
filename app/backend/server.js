@@ -15,6 +15,7 @@ if (!JWT_SECRET) {
   throw new Error('La variable JWT_SECRET es obligatoria');
 }
 
+
 app.use(
   cors({
     origin: process.env.FRONTEND_URL || 'http://localhost:3000',
