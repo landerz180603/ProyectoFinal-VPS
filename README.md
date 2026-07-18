@@ -52,7 +52,7 @@
 - VPS con Ubuntu 20.04+
 - Docker y Docker Compose instalados
 - Acceso SSH
-- Dominio o subdominio (DuckDNS en este caso)
+- Dominio o subdominio 
 
 ### 1️⃣ Clonar el repositorio en el VPS
 
@@ -72,7 +72,7 @@ cp .env.example .env
 Editar `.env` con tus valores:
 
 ```bash
-DOMAIN=landerzgalloerazo.duckdns.org
+DOMAIN=jorge.byronrm.com
 TRAEFIK_USER=admin
 TRAEFIK_PASSWORD=tu_contraseña_segura
 DB_USER=locores_user
